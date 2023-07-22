@@ -18,11 +18,11 @@ class Email {
     public function enviarConfirmacion(){
         $mail = new PHPMailer();
         $mail->isSMTP();
-        $mail->Host = 'smtp.mailtrap.io';
+        $mail->Host = $_ENV['EMAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = '181a0be00d9b8a';
-        $mail->Password = '3040bc775332cc';
+        $mail->Port = $_ENV['EMAIL_PORT'];
+        $mail->Username = $_ENV['181a0be00d9b8a'];
+        $mail->Password = $_ENV['3040bc775332cc'];
         $mail->SMTPSecure = 'tls';
 
         $mail->setFrom('cuentas@appsalon.com');
@@ -34,7 +34,7 @@ class Email {
 
         $contenido = "<html>";
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has creado tu cuenta en AppSalon, solo debes confirmarla presionando el siguiente enlace</p>";
-        $contenido .= "<p>Presiona aqui: <a href='http://localhost:3000/confirmar-cuenta?token=" . $this->token . "'>Confirmar Cuenta</a></p>";
+        $contenido .= "<p>Presiona aqui: <a href='" . $_ENV['APP_URL'] . "/confirmar-cuenta?token=" . $this->token . "'>Confirmar Cuenta</a></p>";
         $contenido .= "<p>Si tu no solicitaste esta cuenta, puedes ignorar el mensaje</p>";
         $contenido .= "</html>";
 
@@ -63,7 +63,7 @@ class Email {
 
         $contenido = "<html>";
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado restablecer tu password, sigue el siguiente enlace para hacerlo.</p>";
-        $contenido .= "<p>Presiona aqui: <a href='http://localhost:3000/recuperar?token=" . $this->token . "'>Restablecer Password</a></p>";
+        $contenido .= "<p>Presiona aqui: <a href='" . $_ENV['APP_URL'] . "/recuperar?token=" . $this->token . "'>Restablecer Password</a></p>";
         $contenido .= "<p>Si tu no solicitaste esta cambio, puedes ignorar el mensaje</p>";
         $contenido .= "</html>";
 
